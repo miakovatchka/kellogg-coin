@@ -1,8 +1,54 @@
 <h1>KelloggCoin Ledger</h1>
-
 <!-- Step 1: List all transactions, starting with the ICO -->
+<% transactions = Transaction.all %>
+ <ol>
+ <li>
+      <% for transaction in transactions %>
+      <% if transaction.from_user_id %>
+        <% from_user = User.find(transaction.from_user_id).name %>
+        <% to_user = User.find(transaction.to_user_id).name %>
+        <%= "#{transaction.amount} KC from #{from_user} to #{to_user}" %>
+      <% else %>
+        <% to_user = User.find(transaction.to_user_id).name %>
+        <%= "Initial Coin Offering: #{transaction.amount} KC to #{to_user}" %>
+      <% end %>
+    </li>
+  <% end %>
+</ol>
+
+
 
 <!-- Step 2: Calculate and display the balances -->
+<% bens_balance = 0 %>
+<% brians_balance = 0 %>
+<% evans_balance = 0 %>
+<% anthonys_balance = 0 %>
+
+<% for transaction in transactions %>
+<% if transaction["from_user"] == "ben" %>
+    <% bens_balance = bens_balance - transaction["amount"] %>
+  <% elsif transaction["from_user"] == "brian" %>
+   <%  brians_balance = brians_balance - transaction["amount"] %>
+ <%  elsif transaction["from_user"] == "evan" %>
+    <%  evans_balance = evans_balance - transaction["amount"] %>
+   <% elsif transaction["from_user"] == "anthony" %>
+     <% anthonys_balance = anthonys_balance - transaction["amount"] %>
+  <% end %>
+
+    <% if transaction["to_user"] == "ben" %>
+    <% bens_balance = bens_balance + transaction["amount"] %>
+   <%elsif transaction["to_user"] == "brian" %>
+    <% brians_balance = brians_balance + transaction["amount"] %>
+  <% elsif transaction["to_user"] == "evan" %>
+    <% evans_balance = evans_balance + transaction["amount"] %>
+  <% elsif transaction["to_user"] == "anthony" %>
+    <% anthonys_balance = anthonys_balance + transaction["amount"] %>
+  <% end %>
+ <% end %>
+
+ Ben's balance is <%= bens_balance%>
+
+
 
 <!-- 
 Expected balances:
