@@ -3,14 +3,19 @@
 <% transactions = Transaction.all %>
  <ol>
  <li>
+
       <% for transaction in transactions %>
       <% if transaction.from_user_id %>
         <% from_user = User.find(transaction.from_user_id).name %>
         <% to_user = User.find(transaction.to_user_id).name %>
+        <p>
         <%= "#{transaction.amount} KC from #{from_user} to #{to_user}" %>
+        </p>
       <% else %>
+      <p>
         <% to_user = User.find(transaction.to_user_id).name %>
         <%= "Initial Coin Offering: #{transaction.amount} KC to #{to_user}" %>
+        </p>
       <% end %>
     </li>
   <% end %>
@@ -46,7 +51,7 @@
   <% end %>
  <% end %>
 
- Ben's balance is <%= bens_balance%>
+ Brian's balance is <%= brians_balance%>
 
 
 
